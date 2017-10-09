@@ -1,0 +1,146 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"title": "Friend Management",
+	    "description": "This is a documentation for friend management API",
+	    "version": "1.0"
+   	},
+   	"tags":[{
+   	 	"name":"friend",
+   	 	"description":"Everything about friend management"
+   	}],
+   	"produces": ["application/json"],
+   	"paths": {
+     	"/": {
+       		"get": {
+         		"x-swagger-router-controller": "home",
+         		"operationId": "index",
+         		"tags": ["friend"],
+         		"description": "Test on first API",
+         		"parameters": [],
+         		"responses": {}
+       		}
+     	},
+	  	"/friend": {
+			"post": {
+			  	"summary": "Create friend connection",
+			  	"x-swagger-router-controller": "bar",
+			  	"operationId": "impossible",
+			  	"tags": ["friend"],
+			  	"description": "",
+			  	"parameters": [{
+	            	"in": "body",
+	            	"name": "body",
+	            	"description": "Friend object that needs to be added to the list",
+	            	"required": true,
+	            	"schema": {
+	              		"$ref": "#/definitions/Friend"
+	            	}
+	          	}],
+			  	"responses": {}
+			}
+	  	},
+	  	"/friend/list": {
+			"post": {
+			  	"summary": "Retrieve the friends list for an email address",
+			  	"x-swagger-router-controller": "bar",
+			  	"operationId": "impossible",
+			  	"tags": ["friend"],
+			  	"description": "",
+			  	"parameters": [{
+	            	"in": "body",
+	            	"name": "body",
+	            	"description": "Email object that needs to be retrieve the list",
+	            	"required": true,
+	            	"schema": {
+	              		"$ref": "#/definitions/FriendList"
+	            	}
+	          	}],
+			  	"responses": {}
+			}
+	  	},
+	  	"/friend/common": {
+			"post": {
+			  	"summary": "Retrieve common friends list between two email address",
+			  	"x-swagger-router-controller": "bar",
+			  	"operationId": "impossible",
+			  	"tags": ["friend"],
+			  	"description": "",
+			  	"parameters": [{
+	            	"in": "body",
+	            	"name": "body",
+	            	"description": "Friend object that needs to be retrieve the list",
+	            	"required": true,
+	            	"schema": {
+	              		"$ref": "#/definitions/Friend"
+	            	}
+	          	}],
+			  	"responses": {}
+			}
+	  	},
+	  	"/subscribe": {
+			"post": {
+			  	"summary": "Subscribe to updates from an email address",
+			  	"x-swagger-router-controller": "bar",
+			  	"operationId": "impossible",
+			  	"tags": ["friend"],
+			  	"description": "",
+			  	"parameters": [{
+	            	"in": "body",
+	            	"name": "body",
+	            	"description": "Requestor Target object that needs to be added to the list",
+	            	"required": true,
+	            	"schema": {
+	              		"$ref": "#/definitions/RequestorTarget"
+	            	}
+	          	}],
+			  	"responses": {}
+			}
+	  	}
+   },
+   "definitions": {
+    "Friend": {
+    	"type": "object",
+    	"required": [
+    		"friends"
+    	],
+    	"properties": {
+    		"friends": {
+    			"type": "array",
+    			"example": ["andy@example.com","john@example.com"],
+    			"minItems": 2,
+    			"uniqueItems": true
+    		}
+    	}
+    },
+    "FriendList": {
+    	"type": "object",
+    	"required": [
+    		"email"
+    	],
+    	"properties": {
+    		"email": {
+    			"type": "string",
+    			"example": "andy@example.com"
+    		}
+    	}
+    },
+    "RequestorTarget": {
+    	"type": "object",
+    	"required": [
+    		"requestor",
+    		"target"
+    	],
+    	"properties": {
+    		"requestor": {
+    			"type": "string",
+    			"example": "lisa@example.com"
+    		},
+    		"target": {
+    			"type": "string",
+    			"example": "john@example.com"
+    		}
+    	}
+    }
+  }
+}

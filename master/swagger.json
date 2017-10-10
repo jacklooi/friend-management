@@ -96,6 +96,44 @@
 	          	}],
 			  	"responses": {}
 			}
+	  	},
+	  	"/block": {
+			"post": {
+			  	"summary": "Block updates from an email address",
+			  	"x-swagger-router-controller": "bar",
+			  	"operationId": "impossible",
+			  	"tags": ["friend"],
+			  	"description": "",
+			  	"parameters": [{
+	            	"in": "body",
+	            	"name": "body",
+	            	"description": "Block Update object that needs to be added to the list",
+	            	"required": true,
+	            	"schema": {
+	              		"$ref": "#/definitions/BlockUpdate"
+	            	}
+	          	}],
+			  	"responses": {}
+			}
+	  	},
+	  	"/recipient": {
+			"post": {
+			  	"summary": "Retrieve all email addresses that can receive updates from an email address",
+			  	"x-swagger-router-controller": "bar",
+			  	"operationId": "impossible",
+			  	"tags": ["friend"],
+			  	"description": "",
+			  	"parameters": [{
+	            	"in": "body",
+	            	"name": "body",
+	            	"description": "Sender Text object that needs to be return to the list",
+	            	"required": true,
+	            	"schema": {
+	              		"$ref": "#/definitions/SenderText"
+	            	}
+	          	}],
+			  	"responses": {}
+			}
 	  	}
    },
    "definitions": {
@@ -139,6 +177,40 @@
     		"target": {
     			"type": "string",
     			"example": "john@example.com"
+    		}
+    	}
+    },
+    "BlockUpdate": {
+    	"type": "object",
+    	"required": [
+    		"requestor",
+    		"target"
+    	],
+    	"properties": {
+    		"requestor": {
+    			"type": "string",
+    			"example": "andy@example.com"
+    		},
+    		"target": {
+    			"type": "string",
+    			"example": "john@example.com"
+    		}
+    	}
+    },
+    "SenderText": {
+    	"type": "object",
+    	"required": [
+    		"sender",
+    		"text"
+    	],
+    	"properties": {
+    		"sender": {
+    			"type": "string",
+    			"example": "john@example.com"
+    		},
+    		"text": {
+    			"type": "string",
+    			"example": "Hello World! kate@example.com"
     		}
     	}
     }

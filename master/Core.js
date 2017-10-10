@@ -43,6 +43,29 @@ var subscribe = function (req, callback) {
     return callback(null, json);
 };
 
+// 5. Block updates from an email address
+var blockUpdate = function (req, callback) {
+    var emailReq = req.body.requestor;
+    var emailTar = req.body.target;
+    var result = validateReqTar(emailReq, emailTar);
+    var json = prettifyJSON(result);
+
+    return callback(null, json);
+};
+
+// 6. Retrieve all email addresses that can receive updates from an email address
+var recipientList = function (req, callback) {
+    var sender = req.body.sender;
+    var textVal = req.body.text;
+    var result = validateEmail(sender);
+    var json = prettifyJSON(result);
+
+    if (result.success == true)
+        json = prettifyJSON({ success: true, recipients: ["lisa@example.com", "kate@example.com"]});
+
+    return callback(null, json);
+};
+
 var validateFriends = function (friends) {
     // Check if email given more than 2 or less than 2
     if(friends.length > 2)
@@ -106,3 +129,5 @@ exports.friendConnect = friendConnect;
 exports.friendList = friendList;
 exports.friendCommon = friendCommon;
 exports.subscribe = subscribe;
+exports.blockUpdate = blockUpdate;
+exports.recipientList = recipientList;

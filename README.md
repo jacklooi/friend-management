@@ -1,9 +1,9 @@
-# friend-management
+# Friend Management API
 
-Everything about friend management
+Everything about friend management.
 
 For API documents, please go to:  
-```http://friendmanagement.azurewebsites.net/docs/```
+http://friendmanagement.azurewebsites.net/docs/
 
 ## Sample APIs
 ### /friend

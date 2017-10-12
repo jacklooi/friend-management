@@ -1,10 +1,9 @@
 # friend-management
 
-To test it, please run on your bash:  
-```node app.js```
+Everything about friend management
 
 For API documents, please go to:  
-```http://localhost:3000/docs```
+```http://friendmanagement.azurewebsites.net/docs/```
 
 ## Sample APIs
 ### /friend

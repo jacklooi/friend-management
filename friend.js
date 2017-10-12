@@ -9,7 +9,8 @@ router.use(function timeLog (req, res, next) {
 });
 
 router.get('/', function (req,res) {
-	res.send('Hello World');
+	res.send('Welcome to Friend Management API <br/>' +
+		'For API document, please visit: http://friendmanagement.azurewebsites.net/docs');
 });
 
 // POST /friend

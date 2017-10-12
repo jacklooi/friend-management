@@ -60,8 +60,16 @@ var recipientList = function (req, callback) {
     var result = validateEmail(sender);
     var json = prettifyJSON(result);
 
+    var recipients = [ "lisa@example.com" ];
+    // Get list of email in text and form into recipient list
+    var emails = checkIfEmailInString(textVal);
+    emails.forEach(function(email) {
+        console.log(email);
+        recipients.push(email);
+    });
+
     if (result.success == true)
-        json = prettifyJSON({ success: true, recipients: ["lisa@example.com", "kate@example.com"]});
+        json = prettifyJSON({ success: true, recipients: recipients });
 
     return callback(null, json);
 };
@@ -100,6 +108,11 @@ var validateEmail = function (email) {
 
     return { success: true };
 };
+
+var checkIfEmailInString = function (text) { 
+    var regex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+    return text.match(regex);
+}
 
 var validateReqTar = function (emailReq, emailTar) {
     // Check if value are empty or null

@@ -149,8 +149,12 @@ var getRecipients = function(db, req, callback) {
 	
 	getFriendsList(db, sender, function(err, lists) {
 		if (err) console.log(err);
-		var friendList = lists.friends;
-		var followerList = lists.follower;
+		var friendList = [];
+		if("friends" in lists)
+			friendList = lists.friends;
+		var followerList = []; 
+		if("follower" in lists)
+			followerList = lists.follower;
 
 		var recipientList = [];
 		friendList.forEach(function(friend) {

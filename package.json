@@ -12,6 +12,7 @@
     "babel-core": "^6.26.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
+    "mongodb": "^2.2.33",
     "swagger-ui-express": "^2.0.8",
     "validator": "^9.0.0"
   }

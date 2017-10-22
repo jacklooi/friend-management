@@ -1,36 +1,49 @@
 var validator = require('validator');
+var database = require('./database.js');
 
 // 1. Create friend connection
 var friendConnect = function(req, callback) {
     var friends = req.body.friends;
     var result = validateFriends(friends);
-    var json = prettifyJSON(result);
-    
-    return callback(null, json);
+
+    if (result.success == true) {
+        database.connectFriendDB(req, function(err, res) {
+            if (err) throw err;
+            return callback(null, prettifyJSON({ success: res }));
+        });
+    }
+    else
+        return callback(null, prettifyJSON(result));
 };
 
 // 2. Retrieve the friends list for an email address
 var friendList = function (req, callback) {
     var email = req.body.email;
     var result = validateEmail(email);
-    var json = prettifyJSON(result);
 
-    if (result.success == true)
-        json = prettifyJSON({ success: true, friends: ["john@example.com"], count: 1 });
-
-    return callback(null, json);
+    if (result.success == true) {
+        database.getFriendsListDB(req, function(err, res) {
+            if (err) throw err;
+            return callback(null, prettifyJSON({ success: true, friends: res, count: res.length }));
+        });
+    }
+    else
+        return callback(null, prettifyJSON(result));
 };
 
 // 3. Retrieve common friends list between two email address
 var friendCommon = function (req, callback) {
     var friends = req.body.friends;
     var result = validateFriends(friends);
-    var json = prettifyJSON(result);
 
-    if (result.success == true)
-        json = prettifyJSON({ success: true, friends: ["common@example.com"], count: 1 });
-
-    return callback(null, json);
+    if (result.success == true) {
+        database.getCommonFriendDB(req, function(err, res) {
+            if (err) throw err;
+            return callback(null, prettifyJSON({ success: true, friends: res, count: res.length }));
+        });
+    }
+    else
+        return callback(null, prettifyJSON(result));
 };
 
 // 4. Subscribe to updates from an email address
@@ -38,9 +51,15 @@ var subscribe = function (req, callback) {
     var emailReq = req.body.requestor;
     var emailTar = req.body.target;
     var result = validateReqTar(emailReq, emailTar);
-    var json = prettifyJSON(result);
 
-    return callback(null, json);
+    if (result.success == true) {
+        database.subscribeUserDB(req, function(err, res) {
+            if (err) throw err;
+            return callback(null, prettifyJSON({ success: res }));
+        });
+    }
+    else
+        return callback(null, prettifyJSON(result));
 };
 
 // 5. Block updates from an email address
@@ -48,9 +67,15 @@ var blockUpdate = function (req, callback) {
     var emailReq = req.body.requestor;
     var emailTar = req.body.target;
     var result = validateReqTar(emailReq, emailTar);
-    var json = prettifyJSON(result);
 
-    return callback(null, json);
+    if (result.success == true) {
+        database.blockUserDB(req, function(err, res) {
+            if (err) throw err;
+            return callback(null, prettifyJSON({ success: res }));
+        });
+    }
+    else
+        return callback(null, prettifyJSON(result));
 };
 
 // 6. Retrieve all email addresses that can receive updates from an email address
@@ -58,20 +83,15 @@ var recipientList = function (req, callback) {
     var sender = req.body.sender;
     var textVal = req.body.text;
     var result = validateEmail(sender);
-    var json = prettifyJSON(result);
 
-    var recipients = [ "lisa@example.com" ];
-    // Get list of email in text and form into recipient list
-    var emails = checkIfEmailInString(textVal);
-    emails.forEach(function(email) {
-        console.log(email);
-        recipients.push(email);
-    });
-
-    if (result.success == true)
-        json = prettifyJSON({ success: true, recipients: recipients });
-
-    return callback(null, json);
+    if (result.success == true) {
+        database.getRecipientsDB(req, function(err, res) {
+            if (err) throw err;
+            return callback(null, prettifyJSON({ success: true, recipients: res, count: res.length }));
+        });
+    }
+    else
+        return callback(null, prettifyJSON(result));
 };
 
 var validateFriends = function (friends) {

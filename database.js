@@ -167,7 +167,7 @@ var getRecipients = function(db, req, callback) {
 		});
 
 		for (var i = recipientList.length - 1; i >= 0; i--) {
-			isBlocked(db, sender, recipientList[i], i, function(err, count, index) {
+			isBlockedIndex(db, sender, recipientList[i], i, function(err, count, index) {
 				if (err) console.log(err);
 				if (count > 0) {
 					recipientList.splice(index, 1);
@@ -197,7 +197,7 @@ var isBlocked = function(db, requestor, target, callback) {
 	});
 };
 
-var isBlocked = function(db, requestor, target, index, callback) {
+var isBlockedIndex = function(db, requestor, target, index, callback) {
 	db.collection('friends').find({
 		"id": target,
 		"block": { $in: [ requestor ] }
